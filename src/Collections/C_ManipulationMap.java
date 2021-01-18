@@ -2,13 +2,18 @@ package Collections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class C_ManipulationMap {
@@ -16,11 +21,14 @@ public class C_ManipulationMap {
 	public static void main(String[] args) {
 
 		/////////////////////////////////////////////////////////////////
-		/////////// 1. Overview of Set Collection ////////
+		/////////// 1. Overview of Map ////////
 		/////////////////////////////////////////////////////////////////
 
 		/*
-		 * Duplicate elements are not allowed. Elements are not stored in order.
+		 * Maps are perfectly for key-value association mapping such as dictionaries.
+		 * Some examples:
+		 *		A map of error codes and their descriptions.
+		 *		A map of zip codes and cities
 		 * 
 		 * Why and When Use Sets? You want to store elements distinctly without
 		 * duplication, or unique elements. You don’t care about the order of elements
@@ -28,7 +36,7 @@ public class C_ManipulationMap {
 		 */
 
 		///////////////////////////////////////////////////////////////////////
-		////////////// 2. Set Implementations //////////////////
+		////////////// 2. Implementations of Map             //////////////////
 		///////////////////////////////////////////////////////////////////////
 
 		/*
@@ -36,179 +44,199 @@ public class C_ManipulationMap {
 		 * implementation. It represents the core characteristics of sets: no
 		 * duplication and unordered. 
 		 * 
-		 * LinkedHashSet: This implementation orders its
-		 * elements based on insertion order. So consider using a LinkedHashSet when you
-		 * want to store unique elements in order. 
+		 * HashMap 
 		 * 
-		 * TreeSet: This implementation orders
-		 * its elements based on their values, either by their natural ordering, or by a
-		 * Comparator provided at creation time.
+		 * LinkedHashMap 
+		 * 
+		 * TreeMap
 		 */
 
 		///////////////////////////////////////////////////////////////////////
-		////////////// 3. Creating a new Set       //////////////////
+		////////////// 3. Creating a new Map       //////////////////
 		///////////////////////////////////////////////////////////////////////
 		
-		Set<Integer> numbers = new HashSet<>();
-		Set<String> names = new LinkedHashSet<>();
-		//create a Set from an existing collection
-		List<Integer> listNumbers = Arrays.asList(3, 9, 1, 4, 7, 2, 5, 3, 8, 9, 1, 3, 8, 6);
-		System.out.println(listNumbers);
-		Set<Integer> uniqueNumbers = new HashSet<>(listNumbers);
-		System.out.println(uniqueNumbers);
+		Map<Integer, String> mapHttpErrors = new HashMap<>();
+		mapHttpErrors.put(200, "OK");
+		mapHttpErrors.put(303, "See Other");
+		mapHttpErrors.put(404, "Not Found");
+		mapHttpErrors.put(500, "Internal Server Error");
+		System.out.println(mapHttpErrors);
 		
-		//use stream with filter and collection functions to return a Set from a collection
-		Set<Integer> uniqueOddNumbers = listNumbers.stream()
-			    .filter(number -> number % 2 != 0).collect(Collectors.toSet());		 
-	    System.out.println(uniqueOddNumbers);
-	    
-	    
-	    Set<String> bigNames = new HashSet<>(1000); // 16 by default
+		//The map mapErrors is created with initial elements copied from the map mapHttpErrors.
+		Map<Integer, String> mapErrors = new HashMap<>(mapHttpErrors);
+		
+        System.out.println("---------------- Creating a LinkedHashMap: ------------");
+        Map<String, String> mapContacts = new LinkedHashMap<>();
+        
+        mapContacts.put("0169238175", "Tom");
+        mapContacts.put("0904891321", "Peter");
+        mapContacts.put("0945678912", "Mary");
+        mapContacts.put("0981127421", "John");
+         
+        System.out.println(mapContacts);
 
-		
+        System.out.println("---------------- Creating a TreeMap : ------------");
+        Map<String, String> mapLang = new TreeMap<>();
+        
+        mapLang.put(".c", "C");
+        mapLang.put(".java", "Java");
+        mapLang.put(".pl", "Perl");
+        mapLang.put(".cs", "C#");
+        mapLang.put(".php", "PHP");
+        mapLang.put(".cpp", "C++");
+        mapLang.put(".xml", "XML");
+         
+        System.out.println(mapLang);
 		
 		///////////////////////////////////////////////////////////////////////
-		////////////// 4. Performing Basic Operations on a Set  //////////////////
+		////////////// 4. Performing Basic Operations on a Map  //////////////////
 		//////////////////////////////////////////////////////////////////////
 
-	    // Adding elements to a Set: The add()method returns true/false
-	    Set<String> names4 = new HashSet<>();
-	    names4.add("Tom");
-	    names4.add("Mary");
+	     System.out.println("------------------ Associating a value with a key:-------------");
+	     Map<Integer, String> mapHttpErrors4 = new HashMap<>();
+	     mapHttpErrors4.put(400, "Bad Request");
+	     mapHttpErrors4.put(304, "Not Modified");
+	     mapHttpErrors4.put(200, "OK");
+	     mapHttpErrors4.put(301, "Moved Permanently");
+	     mapHttpErrors4.put(500, "Internal Server Error");
 	     
-	    if (names4.add("Peter")) { // true
-	        System.out.println("Peter is added to the set");
-	    }
 	     
-	    if (!names4.add("Tom")) { // false
-	        System.out.println("Tom is already added to the set");
-	    }
-	    
-	    // Removing an element from a Set:   true/false ?
-	    if (names4.remove("Mary")) {   
-	        System.out.println("Marry is removed");
-	    }
-	    
-	    // Check if a Set is empty:   true/false ?
-	    if (names.isEmpty()) {
-	        System.out.println("The set is empty");
-	    } else {
-	        System.out.println("The set is not empty");
-	    }
-	    
-	    // Remove all elements from a Set:
-	    names.clear();
-	    
-	    if (names.isEmpty()) {
-	        System.out.println("The set is empty");
-	    }
-	    
-	    // Get total number of elements in a Set:
-	    Set<String> names44 = new HashSet<>();
-	    names44.add("Tom");
-	    names44.add("Mary");
-	    names44.add("Peter");
-	    names44.add("Alice");
+	     System.out.println("-------------- Getting a value associated with a specified key ----------");
+	     String status301 = mapHttpErrors4.get(301);
+	     System.out.println("301: " + status301);
 	     
-	    System.out.printf("The set has %d elements", names44.size());
-        System.out.println("-");
+	     
+	     System.out.println("------------- Checking if the map contains a specified value------");
+	     if (mapHttpErrors4.containsKey("200")) {
+	    	    System.out.println("Http status 200");
+	    	}
+	     
+	     System.out.println("------------- Checking if the map contains a specified value------");
+	     if (mapHttpErrors4.containsValue("OK")) {
+	    	    System.out.println("Found status OK");
+	    	}
+	     
+	     System.out.println("--------------- Removing a mapping from the map -------------");
+	     String removedValue = mapHttpErrors4.remove(500);
+	     
+	     if (removedValue != null) {
+	         System.out.println("Removed value: " + removedValue);
+	     }
+	     
+	     System.out.println("---Replacing a value associated with a specified key:--");
+	     System.out.println("Map before: " + mapHttpErrors4);	     
+	     mapHttpErrors4.replace(304, "No Changes");	      
+	     System.out.println("Map after: " + mapHttpErrors4);
 
+	     System.out.println("------------------ Getting the size of the map:   -------------");
+	     int size = mapHttpErrors4.size();
+	     
+	     System.out.println("------------------ Checking if the map is empty:   -------------");
+	     if (mapHttpErrors4.isEmpty()) {
+	    	    System.out.println("No Error");
+	    	} else {
+	    	    System.out.println("Have HTTP Errors");
+	    	}
+        
+        
+	     
+	    
+	    
 
 	
 	    
 		///////////////////////////////////////////////////////////////////////
-		//////////////   5. Iterating over elements in a Set    ///////////////
+		////////// 5. Iterating Over a Map (using Collection views)  ///////////////
 		///////////////////////////////////////////////////////////////////////
 
-        // Using an iterator:
-	    Set<String> names5 = new HashSet<>();
-	    names5.add("Tom");
-	    names5.add("Mary");
-	    names5.add("Peter");
-	    names5.add("Alice");
+         
 	     
-	     
-	    Iterator<String> iterator = names5.iterator();
-        System.out.println("-----------------Iterating Using an iterator--------------");
-
-	    while (iterator.hasNext()) {
-	        String name = iterator.next();
-	        System.out.println(name);
-	    }
+         System.out.println("-- ---keySet():     returns a Set view of the keys contained in the map--------------");
+ 
+         Map<String, String> mapCountryCodes = new HashMap<>();
+         
+         mapCountryCodes.put("1", "USA");
+         mapCountryCodes.put("44", "United Kingdom");
+         mapCountryCodes.put("33", "France");
+         mapCountryCodes.put("81", "Japan");
+          
+         Set<String> setCodes = mapCountryCodes.keySet();
+         Iterator<String> iterator = setCodes.iterator();
+          
+         while (iterator.hasNext()) {
+             String code = iterator.next();
+             String country = mapCountryCodes.get(code);
+          
+             System.out.println(code + " => " + country);
+         }
  	    
-	    // Using the enhanced for loop:
-	    System.out.println("-----------------Iterating Using enhanced for loop--------------");
-	    for (String name : names5) {
-	        System.out.println(name);
+ 	    System.out.println("-----values():    returns a collection of values contained in the map.--------------");
+ 	   Collection<String> countries = mapCountryCodes.values();
+ 	  
+ 	  for (String country : countries) {
+ 	      System.out.println(country);
+ 	  }
+ 	  
+	    System.out.println("-----entrySet()  :  returns a Set view of the mappings contained in this map.-------");
+ 
+	    Set<Map.Entry<String, String>> entries = mapCountryCodes.entrySet();
+	    
+	    for (Map.Entry<String, String> entry : entries) {
+	        String code = entry.getKey();
+	        String country = entry.getValue();
+	     
+	        System.out.println(code + " => " + country);
 	    }
-	    // Using the forEach() method with Lambda expression
-	    System.out.println("-----------------  Iterating Using forEach()  --------------");
-	    names5.forEach(System.out::println);
-
+	    
+	    System.out.println("---   ----------    forEach()     ------------------------------------");
+	    mapCountryCodes.forEach(
+	    	    (code, country) -> System.out.println(code + " => " + country));
+	    
 		///////////////////////////////////////////////////////////////////////
-		//////////////  6. Searching for an element in a Set    ///////////////
+		////////////// 6. Performing Bulk Operations with Maps   ///////////////
 		///////////////////////////////////////////////////////////////////////
-		//
-	    Set<String> names6 = new HashSet<>();
-	    System.out.println("-----------------  Searching Using  contains(Object)  --------------");
-	    names6.add("Tom");
-	    names6.add("Mary");
-	    names6.add("Peter");
-	    names6.add("Alice");
+		
+	    System.out.println("------------------------------------------------------------------");
+	    System.out.println("---------------  clear() and putAll(). ------------ --------------");	    	    
+	    System.out.println("------------------------------------------------------------------");
+	    // clear() method removes all mappings from the map. The map will be empty after this method returns
+	    
+	    
+	    System.out.println("-------        clear()   --------------");
+	    mapHttpErrors.clear();
+	    System.out.println("Is map empty? " + mapHttpErrors.isEmpty());
+
+	    // putAll(Map<K, V> m) method copies all of the mappings from the specified map to this map
+	    Map<Integer, String> countryCodesEU = new HashMap<>();
+	    
+	    countryCodesEU.put(44, "United Kingdom");
+	    countryCodesEU.put(33, "France");
+	    countryCodesEU.put(49, "Germany");
 	     
-	    if (names6.contains("Mary")) {
-	        System.out.println("Found Mary");
-	    }
+	    Map<Integer, String> countryCodesWorld = new HashMap<>();
+	     
+	    countryCodesWorld.put(1, "United States");
+	    countryCodesWorld.put(86, "China");
+	    countryCodesWorld.put(82, "South Korea");
+	     
+	     
+	    System.out.println("Before: " + countryCodesWorld);
+	     
+	    countryCodesWorld.putAll(countryCodesEU);
+	     
+	    System.out.println("After: " + countryCodesWorld);
+	    
+	    
+	     
+	     
 
 	    
 	    
+		 
+	    
+	     
 		/////////////////////////////////////////////////////////////////////////////
-		////////////// 7. Performing Bulk Operations between two Sets ///////////////
-		/////////////////////////////////////////////////////////////////////////////
-	    
-	    System.out.println("----------------------   Subset operation  --------------------");
-	    Set<Integer> s1 = new HashSet<>(Arrays.asList(20, 56, 89, 31, 8, 5));
-	    Set<Integer> s2 = new HashSet<>(Arrays.asList(8, 89));
-	     
-	    if (s1.containsAll(s2)) {
-	        System.out.println("s2 is a subset of s1");
-	    }
-	    
-	    System.out.println("-----------------------   Union operation   --------------------");
-
-	    Set<Integer> s71 = new HashSet<>(Arrays.asList(1, 3, 5, 7, 9));
-	    Set<Integer> s72 = new HashSet<>(Arrays.asList(2, 4, 6, 8));
-	     
-	    System.out.println("s1 before union: " + s71);
-	     
-	    s71.addAll(s72);
-	     
-	    System.out.println("s1 after union: " + s71);
-	    
-	    System.out.println("--------------------- Intersection operation  -------------------");
-	    Set<Integer> s73 = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 7, 9));
-	    Set<Integer> s74 = new HashSet<>(Arrays.asList(2, 4, 6, 8));
-	     
-	    System.out.println("s1 ---------- : " + s73);
-	    System.out.println("s2 ---------- : " + s74);
-	     
-	    s73.retainAll(s74);
-	     
-	    System.out.println("Intersection  : " + s73);
-	    
-	    System.out.println("------------------   Set difference operation  -----------------");
-	    
-	    Set<Integer> s75 = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 7, 9));
-	    Set<Integer> s76 = new HashSet<>(Arrays.asList(1, 2, 3, 4));
-	     
- 	    System.out.println("s1 ---------- : " + s75);
-	    System.out.println("s2 ---------- : " + s76);
-	    s75.removeAll(s76);
-	         
-	    System.out.println(" difference   : " + s75);
-
-		/////////////////////////////////////////////////////////////////////////////
-		//////////////////////      8. Concurrent Sets           ////////////////////
+		//////////////////////      7. Concurrent Maps           ////////////////////
 		/////////////////////////////////////////////////////////////////////////////
 	    
 

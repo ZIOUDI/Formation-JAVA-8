@@ -5,6 +5,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="E_Streams/StreamCollectorsGroupingBy/" kind="src" path="src"/>
+	<classpathentry kind="src" path="src/E_Streams/StreamCollectorsGroupingBy"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
