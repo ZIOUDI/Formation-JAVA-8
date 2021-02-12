@@ -7,6 +7,9 @@ public class Student {
     private String email;
     private int age;
     
+    public Student( ) {
+     }
+    
     public Student(String id) {
         this.id = id;
     }

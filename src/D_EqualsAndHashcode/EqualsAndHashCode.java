@@ -36,7 +36,7 @@ public class EqualsAndHashCode {
 	public static void main(String[] args) {
 		
 		///////////////////////////////////////////////////////////////////////
-		//////////////  equals()  ///////////////
+		/////////////////////     equals()                      ///////////////
 		///////////////////////////////////////////////////////////////////////
 		System.out.println("............  String comparison    ........... ... " );  
 		String s1 = new String("This is a string");
@@ -59,7 +59,9 @@ public class EqualsAndHashCode {
 		System.out.println("student1.equals(student2): " + (student1.equals(student2))); // true
 		System.out.println("student2.equals(student3): " + (student2.equals(student3))); // false
 
+		
 		System.out.println("............compares only the ID attribute of two Student ........... ... " );  
+	
 		List<Student> listStudents = new ArrayList<>();
 		listStudents.add(student1); // id =123
 		listStudents.add(student2); // id=123
@@ -75,7 +77,7 @@ public class EqualsAndHashCode {
 		System.out.println("Found student4: " + found4); // false
 		
 		System.out.println("............ search a Student in a List with equals()   ........... ... " );  
-		boolean existe1 = searchStudent(listStudents, "123");
+		boolean existe1 = searchStudent(listStudents, "123"); // if (student.getId().equals(id))
 		boolean existe2 = searchStudent(listStudents, "456");
 		boolean existe3 = searchStudent(listStudents, "789");
 		
@@ -83,9 +85,7 @@ public class EqualsAndHashCode {
 		System.out.println("456 existe : " + existe2); // true
 		System.out.println("789 existe : " + existe3); // false
 		
-		///////////////////////////////////////////////////////////////////////
-		//////////////////////////////  hashCode()  ///////////////////////////
-		///////////////////////////////////////////////////////////////////////
+		 
 		System.out.println(".................................................... ... " );  
 		System.out.println("..................... hashCode()   ................. ... " );  
 		System.out.println(".................................................... ... " );  
@@ -102,9 +102,7 @@ public class EqualsAndHashCode {
 		setStudents.forEach(student -> System.out.println(student)); // output : 3 lines
 		
 		System.out.println("............ HashSet() after hashCode() implementation   ........... ... " );  
-		setStudents.forEach(student -> System.out.println(student)); // output : 2 lines
-
-		
+		setStudents.forEach(student -> System.out.println(student)); // output : 2 lines	
  
 	}
 	
