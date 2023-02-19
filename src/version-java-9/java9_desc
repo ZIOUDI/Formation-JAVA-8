@@ -1,0 +1,13 @@
+    API HTTP 2 :
+
+Java 9 fournit une nouvelle API HTTP basée sur HTTP 2 pour améliorer les performances et la sécurité des applications Web. Cette API permet de gérer les demandes et les réponses HTTP, de gérer les flux de données et de gérer les cookies. Par exemple, voici comment vous pouvez envoyer une demande HTTP en utilisant la nouvelle API :
+
+java
+
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://example.com"))
+    .GET()
+    .build();
+
+HttpResponse<String> response = HttpClient.newHttpClient()
+    .send(request, HttpResponse.BodyHandlers.ofString());
