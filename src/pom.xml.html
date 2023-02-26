@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Informations de base du projet -->
+    <groupId>com.example.project</groupId>
+    <artifactId>project</artifactId>
+    <version>1.0.0</version>
+    <name>Mon projet Maven</name>
+    <description>Ceci est un exemple de projet Maven.</description>
+
+    <!-- Informations du développeur -->
+    <developers>
+        <developer>
+            <id>jdoe</id>
+            <name>John Doe</name>
+            <email>jdoe@example.com</email>
+            <url>http://www.example.com/jdoe</url>
+            <organization>Example Company</organization>
+            <organizationUrl>http://www.example.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+                <role>tester</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+
+    <!-- Informations de gestion de dépendances -->
+    <dependencies>
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>example-library</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Informations de construction -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.example.project.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Informations de distribution -->
+    <distributionManagement>
+        <repository>
+            <id>my-repo</id>
+            <name>My Repository</name>
+            <url>http://example.com/repository</url>
+        </repository>
+        <snapshotRepository>
+            <id>my-snapshot-repo</id>
+            <name>My Snapshot Repository</name>
+            <url>http://example.com/snapshot-repository</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
+
+Voici une explication détaillée des différentes sections du fichier POM Maven :
+
+La section project : cette section est la racine de chaque fichier POM Maven. Elle contient les informations de base du projet, telles que le groupId, l'artifactId, la version, le name et la description.
+groupId : identifie le groupe ou l'organisation qui a créé le projet.
+artifactId : identifie le projet lui-même.
+version : identifie la version actuelle du projet.
+name : spécifie le nom du projet.
+description : fournit une description du projet.
+
+La section developers : cette section permet de définir les informations sur les développeurs impliqués dans le projet, tels que leur id, leur name, leur email, leur url, leur organization, leur organizationUrl, leurs roles et leur timezone.
+
+La section dependencies : cette section permet de définir les dépendances du projet, c'est-à-dire les bibliothèques externes ou les modules nécessaires à la construction et à l'exécution du projet. Chaque dépendance est définie par son groupId, son artifactId, sa version et sa scope.
+groupId : identifie le groupe ou l'organisation qui a créé la bibliothèque.
+artifactId : identifie la bibliothèque elle-même.
+version : identifie la version de la bibliothèque à utiliser.
+scope : spécifie le niveau de portée de la dépendance, qui peut être compile (dépendance nécessaire à la compilation et à l'exécution), provided (dépendance nécessaire à la compilation mais non à l'exécution), runtime (dépendance nécessaire à l'exécution mais non à la compilation) ou test (dépendance nécessaire uniquement pour les tests).
+
+La section build : cette section permet de définir la configuration de la construction du projet, tels que les plugins à utiliser pour compiler, tester et empaqueter le code. Les plugins sont définis par leur groupId, leur artifactId, leur version et leur configuration spécifique.
+maven-compiler-plugin : plugin utilisé pour compiler le code source. La configuration spécifique permet de définir les versions source et target de Java.
+maven-jar-plugin : plugin utilisé pour empaqueter le code dans un fichier JAR exécutable. La configuration spécifique permet de définir le mainClass à exécuter et d'inclure le chemin de classe (classpath) dans le fichier MANIFEST.
+
+La section distributionManagement : cette section permet de définir la configuration de la distribution du projet, telle que les repositories et les snapshotRepositories à utiliser pour publier les artefacts construits. Les repositories sont définis par leur id, leur name et leur url.
+repository : spécifie le repository pour la publication des artefacts stables.
+snapshotRepository : spécifie le repository pour la publication des artefacts de snapshot (versions en développement).
+
+Cet exemple montre comment le fichier POM Maven peut être utilisé pour définir les informations de base du projet,
+
+Dans cet exemple, la balise parent spécifie que le projet actuel hérite des informations de configuration du projet parent ayant le groupId "com.example", l'artifactId "parent-project" et la version "1.0.0".
+
+balise  <parent></parent>
+Les informations de configuration qui peuvent être héritées du POM parent incluent les dépendances, les plugins, les propriétés et d'autres éléments de configuration. Le projet enfant peut également remplacer les informations de configuration héritées en les redéfinissant dans son propre fichier POM.
+
+L'utilisation de la balise parent permet de réduire la duplication de code dans les fichiers POM Maven et de faciliter la maintenance de la configuration du projet.
+
+
+Les balises <dependencies> et <dependencyManagement> :
+
+    sont toutes deux utilisées dans le fichier pom.xml d'un projet Maven pour gérer les dépendances, mais elles ont des rôles différents.
+
+    La balise <dependencies> est utilisée pour définir les dépendances directes du projet. Elle contient une liste d'éléments <dependency> qui spécifient le groupId, l'artifactId et la version des dépendances. Les dépendances déclarées dans cette balise seront automatiquement incluses dans le classpath de votre application lors de la compilation et de l'exécution.
+
+        La balise <dependencyManagement> est utilisée pour définir les versions des dépendances que vous utilisez dans votre projet. Elle contient une liste d'éléments <dependency> similaires à ceux de la balise <dependencies>, mais sans la portée et les exclusions. Les versions déclarées dans cette balise ne sont pas automatiquement incluses dans le classpath de votre application. Au lieu de cela, elles servent de références pour les dépendances dans d'autres parties du POM, telles que les balises <dependencies> des modules enfants.
+
+            En résumé, la balise <dependencies> est utilisée pour spécifier les dépendances directes du projet, tandis que la balise <dependencyManagement> est utilisée pour définir les versions de ces dépendances et servir de références pour les dépendances dans d'autres parties du POM.
